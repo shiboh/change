@@ -1,9 +1,7 @@
 package com.chnMicro.MFExchange.activity;
 
 import android.content.Intent;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.chnMicro.MFExchange.R;
@@ -36,6 +34,5 @@ public class SplashActivity extends BaseActivity {
     @Override protected void initData() {
 
     }
-
 
 }

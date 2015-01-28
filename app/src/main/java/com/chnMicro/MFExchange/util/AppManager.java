@@ -40,12 +40,20 @@ public class AppManager {
         return activityStack.peek();
     }
 
+    public int count() {
+        return activityStack.size();
+    }
+
+
+
     /**
      * finish栈顶activity
      */
     public void finish() {
-        Activity activity = activityStack.lastElement();
-        finish(activity);
+        if (activityStack.size() > 0) {
+            Activity activity = activityStack.lastElement();
+            finish(activity);
+        }
     }
 
     /**

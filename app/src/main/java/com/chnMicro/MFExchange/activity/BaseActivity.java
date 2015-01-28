@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.chnMicro.MFExchange.MiFieApplication;
 import com.chnMicro.MFExchange.R;
@@ -27,8 +27,10 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //添加当前activity进AppManager中的activity栈
-        AppManager.getInstance().add(this);
+        //转场动画
+        if (!(this instanceof SplashActivity)) {
+            overridePendingTransition(R.anim.activity_scroll_from_right, R.anim.abc_fade_out);
+        }
         //TODO:透明状态栏
         //ButterKnife注入
 //        ButterKnife.inject(this);
@@ -43,7 +45,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
         beforeInitViews();
         initViews();
         initData();
-
     }
 
     private void beforeInitViews() {
@@ -102,10 +103,25 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     protected abstract void initData();
 
-    @Override protected void onDestroy() {
-        super.onDestroy();
-
-        AppManager.getInstance().finish();
+    @Override protected void onPause() {
+        super.onPause();
+        //转场动画
+        if (1 != AppManager.getInstance().count()) {
+            overridePendingTransition(R.anim.activity_fadein, R.anim.activity_scroll_to_right);
+        }
     }
 
+    private long exitTime = 0;
+
+    @Override public void onBackPressed() {
+        //最后一个activity时，连击两次back键退出
+        if (1 == AppManager.getInstance().count()) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
 }

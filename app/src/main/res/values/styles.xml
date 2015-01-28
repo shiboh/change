@@ -3,14 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowIsTranslucent">true</item>
-        <!--<item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>-->
-    </style>
-
-    <style name="WindowAnimationStyle" >
-        <item name="android:activityOpenEnterAnimation">@anim/activity_scroll_from_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/activity_fadeout</item>
-        <item name="android:activityCloseEnterAnimation">@anim/activity_fadein</item>
-        <item name="android:activityCloseExitAnimation">@anim/activity_scroll_to_right</item>
     </style>
 
 </resources>
