@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MiFie 红 -->
+    <color name="mifie_red">#FF3333</color>
+    <!-- MiFie 深红 -->
+    <color name="mifie_red_dark">#BD1D20</color>
+    <!-- MiFie 黄 -->
+    <color name="mifie_yellow">#F5C53A</color>
+    <!-- MiFie 蓝 -->
+    <color name="mifie_blue">#2681C5</color>
+    <!-- MiFie 绿 -->
+    <color name="mifie_green">#21913A</color>
+    <!-- MiFie 浅绿 -->
+    <color name="mifie_green_light">#4DB463</color>
+    <!-- MiFie 青 -->
+    <color name="mifie_cyan">#35B7AC</color>
+    <!-- MiFie 灰 -->
+    <color name="mifie_gray">#333333</color>
+    <!-- MiFie 灰2 -->
+    <color name="mifie_gray_2">#485C67</color>
+    <!-- MiFie 灰3 -->
+    <color name="mifie_gray_3">#56637D</color>
+
+
+</resources>
