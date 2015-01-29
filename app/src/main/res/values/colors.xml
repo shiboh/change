@@ -20,6 +20,8 @@
     <color name="mifie_gray_2">#485C67</color>
     <!-- MiFie 灰3 -->
     <color name="mifie_gray_3">#56637D</color>
+    <!-- 白 -->
+    <color name="white">#FFFFFF</color>
 
 
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/asd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:background="@color/mifie_red"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_topbar_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/padding_large"
+            android:text="充值"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_headline_sub"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_topbar_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/padding_large"
+            android:text="我"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_headline"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_topbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/padding_large"
+            android:text="提现"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_headline_sub"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
