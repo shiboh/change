@@ -5,4 +5,7 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="AppTheme.NotTranslucent">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
 </resources>

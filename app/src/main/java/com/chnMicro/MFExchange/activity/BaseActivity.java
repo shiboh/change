@@ -13,6 +13,7 @@ import com.chnMicro.MFExchange.MiFieApplication;
 import com.chnMicro.MFExchange.R;
 import com.chnMicro.MFExchange.util.AppManager;
 import com.chnMicro.MFExchange.util.DensityUtils;
+import com.chnMicro.MFExchange.util.LogUtil;
 
 import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -23,23 +24,26 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  */
 public abstract class BaseActivity extends SwipeBackActivity {
     public static final String INTENT_MODE = "mode";    //跳转时可能带
+    private final AppManager appManager = AppManager.getInstance();
     public boolean needLogin = false;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //转场动画
         if (!(this instanceof SplashActivity)) {
-            overridePendingTransition(R.anim.activity_scroll_from_right, R.anim.abc_fade_out);
+            overridePendingTransition(R.anim.activity_scroll_from_right, R.anim.activity_fadeout);
         }
-        //TODO:透明状态栏
-        //ButterKnife注入
-//        ButterKnife.inject(this);
+        //添加当前activity到栈中
+        appManager.add(this);
+        //栈底activity不能滑动返回
+        if (1 == appManager.count()) {
+            setSwipeBackEnable(false);
+        }
         //需要登录且未登录，则跳转到登录界面
         if (needLogin && !MiFieApplication.isLogin) {
             //TODO: 登录
             //startActivityForResult();
         }
-
         prepare();
         setContentView();
         beforeInitViews();
@@ -106,22 +110,30 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override protected void onPause() {
         super.onPause();
         //转场动画
-        if (1 != AppManager.getInstance().count()) {
+        if (1 != appManager.count()) {
             overridePendingTransition(R.anim.activity_fadein, R.anim.activity_scroll_to_right);
         }
+    }
+
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        appManager.finish();
     }
 
     private long exitTime = 0;
 
     @Override public void onBackPressed() {
         //最后一个activity时，连击两次back键退出
-        if (1 == AppManager.getInstance().count()) {
+        LogUtil.info("AppManager.getInstance().count() : " + appManager.count());
+        if (1 == appManager.count()) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
                 Toast.makeText(this, "再按一次退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
                 super.onBackPressed();
             }
+        } else {
+            super.onBackPressed();
         }
     }
 }

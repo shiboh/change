@@ -5,5 +5,5 @@
     <alpha
         android:fromAlpha="1.0"
         android:duration="@integer/activity_animation_duration"
-        android:toAlpha="0.5" />
+        android:toAlpha="1.0" />
 </set>
