@@ -5,7 +5,7 @@
     
     <dimen name="topbar_height">@dimen/abc_action_bar_default_height_material</dimen>
     <dimen name="navbar_height" >@dimen/abc_action_bar_default_height_material</dimen>
-    <dimen name="padding_default">4dp</dimen>
+    <dimen name="padding_default">12dp</dimen>
     <dimen name="padding_large">8dp</dimen>
     
     <!-- 字体大小 -->
@@ -16,7 +16,6 @@
 
     <dimen name="text_size_headline">24dp</dimen>
     <dimen name="text_size_headline_sub">16dp</dimen>
-
 
     
 </resources>

@@ -23,5 +23,6 @@
     <!-- 白 -->
     <color name="white">#FFFFFF</color>
 
+    <color name="btn_pressed_default">#46ffffff</color>
 
 </resources>

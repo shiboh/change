@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/abc_action_bar_default_height_material"
+    android:background="@color/mifie_red"
+    android:orientation="horizontal">
+
+    <!--android:background="@android:color/transparent"-->
+    <Button
+        android:id="@+id/btn_topbar_left"
+        style="@style/Button.TopbarButton"
+        android:onClick="onTopbarLeftClicked" />
+
+    <TextView
+        android:id="@+id/tv_topbar_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_headline"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_topbar_right"
+        style="@style/Button.TopbarButton"
+        android:onClick="onTopbarRightClicked" />
+
+</LinearLayout>
+

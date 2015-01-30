@@ -2,11 +2,13 @@ package com.chnMicro.MFExchange.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chnMicro.MFExchange.MiFieApplication;
@@ -16,16 +18,23 @@ import com.chnMicro.MFExchange.util.DensityUtils;
 import com.chnMicro.MFExchange.util.LogUtil;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.Optional;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by Enel on 2015/1/26.
+ * 基类~
  */
 public abstract class BaseActivity extends SwipeBackActivity {
     public static final String INTENT_MODE = "mode";    //跳转时可能带
     private final AppManager appManager = AppManager.getInstance();
     public boolean needLogin = false;
+
+    @Optional @InjectView(R.id.btn_topbar_left) TextView btnTopbarLeft;
+    @Optional @InjectView(R.id.tv_topbar_middle) TextView tvTopbarMiddle;
+    @Optional @InjectView(R.id.btn_topbar_right) TextView btnTopbarRight;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +60,23 @@ public abstract class BaseActivity extends SwipeBackActivity {
         initData();
     }
 
+    /**
+     * 获取intent中的信息、检查登录状态等
+     */
+    protected abstract void prepare();
+
+    protected abstract void setContentView();
+
+    protected abstract void initViews();
+
+    protected abstract void initData();
+
     private void beforeInitViews() {
         //滑动返回设置为全屏手势
         SwipeBackLayout sbLayout = getSwipeBackLayout();
         sbLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         sbLayout.setEdgeSize(DensityUtils.getDisplayWidthPx(this));
         sbLayout.setScrimColor(Color.TRANSPARENT);
-
         //ButterKnife注入
         ButterKnife.inject(this);
         //设置状态栏颜色
@@ -66,6 +85,11 @@ public abstract class BaseActivity extends SwipeBackActivity {
             Integer statusColor = getResources().getColor(R.color.mifie_red);
             setStatusBarColor(statusColor);
         }
+        //设置topbar字体
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/fangzheng.ttf");
+        if (btnTopbarLeft != null) btnTopbarLeft.setTypeface(tf);
+        if (tvTopbarMiddle != null) tvTopbarMiddle.setTypeface(tf);
+        if (btnTopbarRight != null) btnTopbarRight.setTypeface(tf);
     }
 
     /**
@@ -94,18 +118,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
             dimen = getResources().getDimensionPixelSize(id);
         return dimen;
     }
-
-
-    /**
-     * 获取intent中的信息、检查登录状态等
-     */
-    protected abstract void prepare();
-
-    protected abstract void setContentView();
-
-    protected abstract void initViews();
-
-    protected abstract void initData();
 
     @Override protected void onPause() {
         super.onPause();
@@ -136,4 +148,26 @@ public abstract class BaseActivity extends SwipeBackActivity {
             super.onBackPressed();
         }
     }
+
+    /**
+     * 设置topbar左、中、右三个文本
+     */
+    protected void setTopbarText(String left, String middle, String right) {
+        if (btnTopbarLeft != null) btnTopbarLeft.setText(left);
+        if (tvTopbarMiddle != null) tvTopbarMiddle.setText(middle);
+        if (btnTopbarRight != null) btnTopbarRight.setText(right);
+    }
+
+    /**
+     * topbar左边按钮被点击
+     */
+    protected void onTopbarLeftClicked(View view) {
+    }
+
+    /**
+     * topbar右边按钮被点击
+     */
+    protected void onTopbarRightClicked(View view) {
+    }
+
 }
