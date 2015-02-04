@@ -8,26 +8,36 @@ import com.chnMicro.MFExchange.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.MySSLSocketFactory;
-import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class SplashActivity extends BaseActivity {
-    @InjectView(R.id.tv_resp) TextView tvResp;
+    @InjectView(R.id.tv_resp)
+    TextView tvResp;
     private AsyncHttpClient myAsyncHttpClient;
 
-    @Override protected void prepare() {
+    @Override
+    protected void prepare() {
 
     }
 
@@ -50,7 +60,8 @@ public class SplashActivity extends BaseActivity {
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.post(url_http, new AsyncHttpResponseHandler() {
-            @Override public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 tvResp.setText("statusCode:" + statusCode + "\n" + new String(responseBody));
             }
 
@@ -64,29 +75,65 @@ public class SplashActivity extends BaseActivity {
 
     private void postByHttps() {
         AsyncHttpClient client = getMyAsyncHttpClient();
-//TODO: 构造请求参数
-        client.post(url_https, new AsyncHttpResponseHandler() {
-            @Override public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String msg = "statusCode:" + statusCode + "\n" + new String(responseBody);
+        //构造请求参数
+        JSONObject infoJson = new JSONObject();
+        JSONObject authJson = new JSONObject();
+//        {"loginPwd":"MTExMTEx\n","username":"13717776061"}
+//        {"appver":"2.0.4","base64":1,"osver":"4.1.1","source":5,"vendor":100000,"version":20}
+        try {
+            infoJson.put("loginPwd", "MTExMTEx\\n")
+                    .put("username", "13717776061");
+            authJson.put("appver", "2.0.4")
+                    .put("base64", 1)
+                    .put("osver", "4.1.1")
+                    .put("source", 5)
+                    .put("vendor", 100000)
+                    .put("version", 20);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //TODO: BaseJsonHttpResp....
+        //TODO: JsonHttpResp...
+        UrlEncodedFormEntity entity = null;
+        try {
+            List<BasicNameValuePair> params = new ArrayList<>();
+            BasicNameValuePair info = new BasicNameValuePair("info", infoJson.toString());
+            BasicNameValuePair auth = new BasicNameValuePair("auth", authJson.toString());
+            params.add(info);
+            params.add(auth);
+            entity = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        client.post(SplashActivity.this, url_https, entity, "application/x-www-form-urlencoded", new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                String msg = "statusCode:" + statusCode + "\n" + responseString + "\n" + throwable.getMessage();
                 tvResp.setText(msg);
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                String msg = "statusCode:" + statusCode + "\n" + String.valueOf(responseBody) + "\n" + error.getMessage();
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                String msg = "statusCode:" + statusCode + "\n" + responseString;
                 tvResp.setText(msg);
             }
         });
+
     }
 
-    @Override protected void setContentView() {
+    @Override
+    protected void setContentView() {
         setContentView(R.layout.activity_splash);
     }
 
-    @Override protected void initViews() {
+    @Override
+    protected void initViews() {
     }
 
-    @Override protected void initData() {
+    @Override
+    protected void initData() {
     }
 
     /**
