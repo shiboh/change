@@ -1,14 +1,17 @@
 package com.chnMicro.MFExchange.activity;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chnMicro.MFExchange.R;
+import com.chnMicro.MFExchange.WJSClient;
+import com.chnMicro.MFExchange.bean.BaseResp;
+import com.chnMicro.MFExchange.util.Prompter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.MySSLSocketFactory;
-import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -17,14 +20,8 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.KeyManagementException;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +35,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void prepare() {
-
     }
 
     @OnClick(R.id.btn_http)
@@ -57,6 +53,17 @@ public class SplashActivity extends BaseActivity {
     private final String url_https = "https://interface.weijinsuo.com:8999/loginUser.do";
 
     private void postByHttp() {
+//        Context context = new MiFieApplication();
+        Context context = getApplication();
+        Context applicationContext = getApplicationContext();
+
+        if (context == applicationContext) {
+            Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
+        }
+
+
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.post(url_http, new AsyncHttpResponseHandler() {
@@ -74,12 +81,9 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void postByHttps() {
-        AsyncHttpClient client = getMyAsyncHttpClient();
         //构造请求参数
         JSONObject infoJson = new JSONObject();
         JSONObject authJson = new JSONObject();
-//        {"loginPwd":"MTExMTEx\n","username":"13717776061"}
-//        {"appver":"2.0.4","base64":1,"osver":"4.1.1","source":5,"vendor":100000,"version":20}
         try {
             infoJson.put("loginPwd", "MTExMTEx\\n")
                     .put("username", "13717776061");
@@ -93,8 +97,6 @@ public class SplashActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        //TODO: BaseJsonHttpResp....
-        //TODO: JsonHttpResp...
         UrlEncodedFormEntity entity = null;
         try {
             List<BasicNameValuePair> params = new ArrayList<>();
@@ -107,19 +109,52 @@ public class SplashActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        client.post(SplashActivity.this, url_https, entity, "application/x-www-form-urlencoded", new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                String msg = "statusCode:" + statusCode + "\n" + responseString + "\n" + throwable.getMessage();
-                tvResp.setText(msg);
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                String msg = "statusCode:" + statusCode + "\n" + responseString;
-                tvResp.setText(msg);
+        WJSClient.post(SplashActivity.this, "/loginUser.do", entity, new WJSClient.WJSBaseJsonHttpResponseHandler() {
+            @Override protected void onRealSuccess(String rawJsonResponse, BaseResp response) {
+                //TODO: 业务逻辑
+                Prompter.toast(SplashActivity.this, "真·业务逻辑");
             }
         });
+
+
+        //by BaseJsonHttpResponseHandler
+//        WJSClient.post(SplashActivity.this, "/loginUser.do", entity, new BaseJsonHttpResponseHandler<HashMap>() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, HashMap response) {
+//                LogUtil.info(statusCode + ":" + response.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, String rawJsonData, HashMap errorResponse) {
+//                LogUtil.info(statusCode + ":" + errorResponse.toString());
+//            }
+//
+//            @Override
+//            protected HashMap parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+//                if (!isFailure) {
+//                    Gson gson = new Gson();
+//                    HashMap hashMap = gson.fromJson(rawJsonData, HashMap.class);
+//                    return hashMap;
+//                }
+//                return new HashMap();
+//            }
+//        });
+
+        //by JsonHttpResponseHandler
+//        client.post(SplashActivity.this, url_https, entity, "application/x-www-form-urlencoded", new JsonHttpResponseHandler(){
+//            @Override public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                LogUtil.info(response.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                LogUtil.info(throwable.getMessage());
+//            }
+//
+//            @Override protected Object parseResponse(byte[] responseBody) throws JSONException {
+//                return super.parseResponse(responseBody);
+//            }
+//        });
 
     }
 
@@ -148,17 +183,7 @@ public class SplashActivity extends BaseActivity {
             MySSLSocketFactory mySSLSocketFactory = new MySSLSocketFactory(trustStore);
             client.setSSLSocketFactory(mySSLSocketFactory);
             return client;
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        } catch (UnrecoverableKeyException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
