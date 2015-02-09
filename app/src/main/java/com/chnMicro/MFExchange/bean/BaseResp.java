@@ -12,7 +12,7 @@ public class BaseResp {
     public static final int CODE_NOT_LOGIN = -1;    //超时或异地登陆，傻傻分不清楚
     public static final int CODE_LOGIN_TIMEOUT = -2;    //超时或异地登陆，傻傻分不清楚
 
-    public int respCode = -10000;
+    public int respcode = -10000;
     public String message = "";
     public JsonObject result;
 
@@ -20,14 +20,14 @@ public class BaseResp {
      * 未登录、登录超时、异地登陆
      */
     public boolean needButNotLogin() {
-        return CODE_NOT_LOGIN == respCode || CODE_LOGIN_TIMEOUT == respCode;
+        return CODE_NOT_LOGIN == respcode || CODE_LOGIN_TIMEOUT == respcode;
     }
 
     /**
      * 业务操作是否成功
      */
     public boolean success(){
-        return CODE_SUCCESS == respCode;
+        return CODE_SUCCESS == respcode;
     }
 
     /**

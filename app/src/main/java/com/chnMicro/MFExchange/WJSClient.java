@@ -1,6 +1,7 @@
 package com.chnMicro.MFExchange;
 
 import android.content.Context;
+import android.os.Message;
 import android.util.Log;
 
 import com.chnMicro.MFExchange.bean.BaseResp;
@@ -18,6 +19,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.security.KeyStore;
 
 /**
@@ -45,6 +47,7 @@ public class WJSClient {
     public static void post(Context context, String url, HttpEntity entity, ResponseHandlerInterface responseHandler) {
         try {
             String reqContent = EntityUtils.toString(entity, HTTP.UTF_8);
+            reqContent = URLDecoder.decode(reqContent, HTTP.UTF_8);
             LogUtil.info(WJSClient.class, "url:" + url + "\n" + reqContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,7 +58,7 @@ public class WJSClient {
     /**
      * 执行post请求
      *
-     * @param co
+     * @param context
      * @param request         封装了url和entity的请求对象
      * @param responseHandler 用来处理response
      */
@@ -97,7 +100,7 @@ public class WJSClient {
 
             //业务操作失败，toast失败提示
             if (response.failure()) {
-                LogUtil.info(WJSClient.class, "业务操作失败。respCode:" + response.respCode);
+                LogUtil.info(WJSClient.class, "业务操作失败。respCode:" + response.respcode);
                 Prompter.toast(context, response.message);
                 return;
             }
@@ -124,11 +127,11 @@ public class WJSClient {
             Log.e("xxx", "rawJsonData:" + rawJsonData);
             Log.e("xxx", "isFailure:" + isFailure);
 
-
             if (!isFailure) {
                 //TODO: 公共gson实例
                 Gson gson = new Gson();
                 BaseResp baseResp = gson.fromJson(rawJsonData, BaseResp.class);
+                Log.e("xxx", "code: " + baseResp.respcode + ",message:" + baseResp.message);
                 return baseResp;
             }
             return null;

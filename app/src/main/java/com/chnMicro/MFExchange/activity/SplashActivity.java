@@ -50,17 +50,6 @@ public class SplashActivity extends BaseActivity {
     private final String url_https = "https://interface.weijinsuo.com:8999/loginUser.do";
 
     private void postByHttp() {
-//        Context context = new MiFieApplication();
-        Context context = getApplication();
-        Context applicationContext = getApplicationContext();
-
-        if (context == applicationContext) {
-            Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
-        }
-
-
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.post(url_http, new AsyncHttpResponseHandler() {
