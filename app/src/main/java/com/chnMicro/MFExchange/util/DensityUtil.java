@@ -6,7 +6,8 @@ import android.util.DisplayMetrics;
 /**
  * Created by Enel on 2015/1/26.
  */
-public class DensityUtils {
+public class DensityUtil {
+    private DensityUtil(){}
     /**
      * 屏幕宽度，单位px
      */

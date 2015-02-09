@@ -13,6 +13,8 @@ import java.util.Date;
  * 日志记录
  */
 public class LogUtil {
+    private LogUtil(){}
+
     /**
      * 开发阶段
      */

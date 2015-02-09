@@ -9,6 +9,7 @@ import android.widget.Toast;
  * 各种“提示”
  */
 public class Prompter {
+    private Prompter(){}
     public static void toast(Context context, String msg) {
         LogUtil.info("context:" + (context == null ? "null" : "not null") + ",msg:" + (msg == null ? "null" : "not null"));
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 
 public class DateUtil {
+    private DateUtil(){}
 	/**
 	 * 获取现在的时间	yyyy-MM-dd
 	 */

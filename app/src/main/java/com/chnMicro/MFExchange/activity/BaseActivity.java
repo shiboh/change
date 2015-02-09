@@ -13,9 +13,12 @@ import android.widget.Toast;
 
 import com.chnMicro.MFExchange.MiFieApplication;
 import com.chnMicro.MFExchange.R;
+import com.chnMicro.MFExchange.Request;
+import com.chnMicro.MFExchange.WJSClient;
 import com.chnMicro.MFExchange.util.AppManager;
-import com.chnMicro.MFExchange.util.DensityUtils;
+import com.chnMicro.MFExchange.util.DensityUtil;
 import com.chnMicro.MFExchange.util.LogUtil;
+import com.loopj.android.http.ResponseHandlerInterface;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -75,7 +78,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         //滑动返回设置为全屏手势
         SwipeBackLayout sbLayout = getSwipeBackLayout();
         sbLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
-        sbLayout.setEdgeSize(DensityUtils.getDisplayWidthPx(this));
+        sbLayout.setEdgeSize(DensityUtil.getDisplayWidthPx(this));
         sbLayout.setScrimColor(Color.TRANSPARENT);
         //ButterKnife注入
         ButterKnife.inject(this);
@@ -168,6 +171,16 @@ public abstract class BaseActivity extends SwipeBackActivity {
      * topbar右边按钮被点击
      */
     protected void onTopbarRightClicked(View view) {
+    }
+
+    /**
+     * 执行post请求
+     *
+     * @param request
+     * @param responseHandler
+     */
+    protected void post(Request request, ResponseHandlerInterface responseHandler) {
+        WJSClient.post(this, request, responseHandler);
     }
 
 }

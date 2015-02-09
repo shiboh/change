@@ -1,7 +1,11 @@
 package com.chnMicro.MFExchange.bean;
 
+import com.google.gson.JsonObject;
+
 /**
  * Created by Enel on 2015/2/5.
+ *
+ * 所有网络响应Json的基类
  */
 public class BaseResp {
     public static final int CODE_SUCCESS = 0;
@@ -10,6 +14,7 @@ public class BaseResp {
 
     public int respCode = -10000;
     public String message = "";
+    public JsonObject result;
 
     /**
      * 未登录、登录超时、异地登陆
