@@ -1,8 +1,5 @@
 package com.chnMicro.MFExchange.activity;
 
-import android.view.View;
-import android.widget.Toast;
-
 import com.chnMicro.MFExchange.R;
 
 /**
@@ -16,21 +13,15 @@ public class MainActivity extends BaseActivity {
 
     @Override protected void setContentView() {
         setContentView(R.layout.activity_main);
+
+//        Fragment
     }
 
     @Override protected void initViews() {
-        setTopbarText("充值", "我", "提现");
+//        setTopbarText("充值", "我", "提现");
     }
 
     @Override protected void dealLogic() {
 
-    }
-
-    @Override public void onTopbarLeftClicked(View view) {
-        Toast.makeText(this, "left clicked", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override public void onTopbarRightClicked(View view) {
-        Toast.makeText(this, "right clicked", Toast.LENGTH_SHORT).show();
     }
 }

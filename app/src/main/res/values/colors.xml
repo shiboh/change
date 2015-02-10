@@ -25,4 +25,9 @@
 
     <color name="btn_pressed_default">#46ffffff</color>
 
+    <!-- 文字 -->
+    <color name="text_grey_light" >@color/mifie_gray</color>
+
+    <color name="divider_color">@color/mifie_gray</color>
+
 </resources>

@@ -2,12 +2,12 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    
+
     <dimen name="topbar_height">@dimen/abc_action_bar_default_height_material</dimen>
-    <dimen name="navbar_height" >@dimen/abc_action_bar_default_height_material</dimen>
+    <dimen name="bottombar_height">@dimen/abc_action_bar_default_height_material</dimen>
     <dimen name="padding_default">12dp</dimen>
     <dimen name="padding_large">8dp</dimen>
-    
+
     <!-- 字体大小 -->
     <dimen name="text_size_micro">12dp</dimen>
     <dimen name="text_size_small">14dp</dimen>
@@ -16,6 +16,7 @@
 
     <dimen name="text_size_headline">24dp</dimen>
     <dimen name="text_size_headline_sub">16dp</dimen>
+    <dimen name="text_size_bottom_label">@dimen/text_size_small</dimen>
 
-    
+    <dimen name="divider_height">1px</dimen>
 </resources>
