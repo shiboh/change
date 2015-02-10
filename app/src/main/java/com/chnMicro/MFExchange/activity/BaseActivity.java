@@ -32,10 +32,15 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * 基类~
  */
 public abstract class BaseActivity extends SwipeBackActivity {
-    public static final String INTENT_MODE = "mode";    //跳转时可能带
+    protected static final String INTENT_MODE = "mode";    //跳转时可能带
     private final AppManager appManager = AppManager.getInstance();
-    public boolean needLogin = false;
-    public Gson gson = MiFieApplication.gson;
+    protected boolean needLogin = false;
+    protected Gson gson = MiFieApplication.gson;
+    /**
+     * statusBarColor 值为0(Color.TRANSPARENT)时，contentView占据全屏；不为0时，contentView占据除statusBar以外的全屏。
+     * 默认为MiFie红。
+     */
+    protected int statusBarColor = -1;
 
     @Optional @InjectView(R.id.btn_topbar_left) TextView btnTopbarLeft;
     @Optional @InjectView(R.id.tv_topbar_middle) TextView tvTopbarMiddle;
@@ -63,7 +68,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         setContentView();
         beforeInitViews();
         initViews();
-        initData();
+        dealLogic();
     }
 
     /**
@@ -75,7 +80,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     protected abstract void initViews();
 
-    protected abstract void initData();
+    protected abstract void dealLogic();
 
     private void beforeInitViews() {
         //滑动返回设置为全屏手势
@@ -87,9 +92,10 @@ public abstract class BaseActivity extends SwipeBackActivity {
         ButterKnife.inject(this);
         //设置状态栏颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            setStatusBarColor(android.R.id.content);
-            Integer statusColor = getResources().getColor(R.color.mifie_red);
-            setStatusBarColor(statusColor);
+            if (statusBarColor < 0) {
+                statusBarColor = getResources().getColor(R.color.mifie_red);
+            }
+            setStatusBarColor(statusBarColor);
         }
         //设置topbar字体
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/fangzheng.ttf");
@@ -105,13 +111,15 @@ public abstract class BaseActivity extends SwipeBackActivity {
         int flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         getWindow().addFlags(flags);
 
-        int statusBarHeight = getStatusBarHeight(this);
-        View view = new View(this);
-        view.setBackgroundColor(color);
-
-        ViewGroup parent = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);//parent是setContentView（content）中content的父view
-        parent.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
-        parent.getChildAt(0).setPadding(0, statusBarHeight, 0, 0);
+        //statusBar 透明的时候，都是全屏的。此时不设置不去padding一个statusBarHeight
+        if (Color.TRANSPARENT != color) {
+            int statusBarHeight = getStatusBarHeight(this);
+            View view = new View(this);
+            view.setBackgroundColor(color);
+            ViewGroup parent = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);//parent是setContentView（content）中content的父view
+            parent.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
+            parent.getChildAt(0).setPadding(0, statusBarHeight, 0, 0);
+        }
     }
 
     /**
@@ -134,8 +142,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
     }
 
     @Override protected void onDestroy() {
+        LogUtil.info("onDestroy" + this.getLocalClassName());
         super.onDestroy();
-        appManager.finish();
+        appManager.pop(this);
     }
 
     private long exitTime = 0;

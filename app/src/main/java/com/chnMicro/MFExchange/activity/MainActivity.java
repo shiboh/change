@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity {
         setTopbarText("充值", "我", "提现");
     }
 
-    @Override protected void initData() {
+    @Override protected void dealLogic() {
 
     }
 

@@ -4,23 +4,15 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
 
-    <Button
-        android:id="@+id/btn_http"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="http" />
-
-    <Button
-        android:id="@+id/btn_https"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btn_http"
-        android:text="https" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/tv_resp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_http" />
+        android:text="SPLASH"
+        android:textSize="50dp" />
 
 </RelativeLayout>
