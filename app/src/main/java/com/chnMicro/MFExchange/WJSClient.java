@@ -124,14 +124,9 @@ public class WJSClient {
 
         @Override
         protected BaseResp parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
-            Log.e("xxx", "rawJsonData:" + rawJsonData);
-            Log.e("xxx", "isFailure:" + isFailure);
-
             if (!isFailure) {
-                //TODO: 公共gson实例
-                Gson gson = new Gson();
+                Gson gson = MiFieApplication.gson;
                 BaseResp baseResp = gson.fromJson(rawJsonData, BaseResp.class);
-                Log.e("xxx", "code: " + baseResp.respcode + ",message:" + baseResp.message);
                 return baseResp;
             }
             return null;

@@ -18,6 +18,7 @@ import com.chnMicro.MFExchange.WJSClient;
 import com.chnMicro.MFExchange.util.AppManager;
 import com.chnMicro.MFExchange.util.DensityUtil;
 import com.chnMicro.MFExchange.util.LogUtil;
+import com.google.gson.Gson;
 import com.loopj.android.http.ResponseHandlerInterface;
 
 import butterknife.ButterKnife;
@@ -34,6 +35,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public static final String INTENT_MODE = "mode";    //跳转时可能带
     private final AppManager appManager = AppManager.getInstance();
     public boolean needLogin = false;
+    public Gson gson = MiFieApplication.gson;
 
     @Optional @InjectView(R.id.btn_topbar_left) TextView btnTopbarLeft;
     @Optional @InjectView(R.id.tv_topbar_middle) TextView tvTopbarMiddle;
@@ -56,6 +58,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
             //TODO: 登录
             //startActivityForResult();
         }
+
         prepare();
         setContentView();
         beforeInitViews();

@@ -1,35 +1,6 @@
 package com.chnMicro.MFExchange.bean;
 
 public class UserInfo {
-    @Override public String toString() {
-        return "UserInfo{" +
-                "userId='" + userId + '\'' +
-                ", username='" + username + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", userLevel=" + userLevel +
-                ", realName='" + realName + '\'' +
-                ", idCard='" + idCard + '\'' +
-                ", accountStatus=" + accountStatus +
-                ", authLevel=" + authLevel +
-                ", balance=" + balance +
-                ", currentTotal=" + currentTotal +
-                ", totalIncoming=" + totalIncoming +
-                ", currentInvest=" + currentInvest +
-                ", yearInvest=" + yearInvest +
-                ", totalInvest=" + totalInvest +
-                ", myMoney=" + myMoney +
-                ", available='" + available + '\'' +
-                ", totalReserv=" + totalReserv +
-                ", lowestMoney=" + lowestMoney +
-                ", loanStatus=" + loanStatus +
-                ", userSession='" + userSession + '\'' +
-                ", effctLogList=" + effctLogList +
-                ", refereeId=" + refereeId +
-                ", transSum=" + transSum +
-                '}';
-    }
-
     private String userId;
     private String username;
     private String phone;

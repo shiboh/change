@@ -1,6 +1,5 @@
 package com.chnMicro.MFExchange.activity;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,8 +10,6 @@ import com.chnMicro.MFExchange.RequestMaker;
 import com.chnMicro.MFExchange.WJSClient;
 import com.chnMicro.MFExchange.bean.BaseResp;
 import com.chnMicro.MFExchange.bean.UserInfo;
-import com.chnMicro.MFExchange.util.LogUtil;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -71,11 +68,8 @@ public class SplashActivity extends BaseActivity {
         post(request, new WJSClient.WJSBaseJsonHttpResponseHandler() {
 
             @Override protected void onRealSuccess(BaseResp response) {
-//                String result = response.result;
                 JsonObject result = response.result;
-                Gson gson = new Gson();
                 UserInfo userInfo = gson.fromJson(result, UserInfo.class);
-                LogUtil.info(SplashActivity.class, userInfo.toString());
             }
         });
 
