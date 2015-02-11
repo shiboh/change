@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -55,8 +56,12 @@ public abstract class BaseActivity extends SwipeBackActivity {
         //添加当前activity到栈中
         appManager.add(this);
         //栈底activity不能滑动返回
-        if (1 == appManager.count()) {
+        //splash和mainactivity不能滑动返回
+        //TODO: 引导页也不能滑动返回
+        if (this instanceof SplashActivity || this instanceof MainActivity) {
             setSwipeBackEnable(false);
+        } else {
+            setSwipeBackEnable(true);
         }
         //需要登录且未登录，则跳转到登录界面
         if (needLogin && !MiFieApplication.isLogin) {
