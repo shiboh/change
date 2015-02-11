@@ -108,7 +108,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
      * 设置状态栏颜色
      */
     private void setStatusBarColor(int color) {
-        int flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+//        int flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        int flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         getWindow().addFlags(flags);
 
         //statusBar 透明的时候，都是全屏的。此时不设置不去padding一个statusBarHeight
