@@ -21,12 +21,13 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override protected void dealLogic() {
+        //TODO: 改为 3000ms
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 300);
     }
 }

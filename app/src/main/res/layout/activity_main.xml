@@ -8,16 +8,17 @@
             layout="@layout/topbar_layout" />-->
 
     <include
+        android:id="@+id/bottombar"
         layout="@layout/bottombar_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 
-
-    <!--    <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/topbar"></fragment>-->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottombar" />
 
 
 </RelativeLayout>

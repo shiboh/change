@@ -1,11 +1,16 @@
 package com.chnMicro.MFExchange.activity;
 
 import android.content.res.Resources;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chnMicro.MFExchange.R;
+import com.chnMicro.MFExchange.fragment.FountFramgnet;
+import com.chnMicro.MFExchange.fragment.MoneyFragment;
 import com.chnMicro.MFExchange.util.Prompter;
 
 import java.util.List;
@@ -24,8 +29,14 @@ public class MainActivity extends BaseActivity {
     @InjectView(R.id.tab_mine) LinearLayout tabMine;
 
     @InjectViews({R.id.tab_money, R.id.tab_found, R.id.tab_mine}) List<LinearLayout> tabs;
+    private MoneyFragment moneyFragment;
+    private FountFramgnet fountFramgnet;
 
     @Override protected void prepare() {
+
+        Log.e("xxx", getLocalClassName() + " prepare()");
+        moneyFragment = new MoneyFragment();
+        fountFramgnet = new FountFramgnet();
 
     }
 
@@ -37,7 +48,6 @@ public class MainActivity extends BaseActivity {
     @Override protected void initViews() {
         initTabs();
         //TODO: 选中第一个
-
 
         //TODO: 设置topbar文字，有的在fragment里，有的在activity里
 //        setTopbarText("充值", "我", "提现");
@@ -54,6 +64,26 @@ public class MainActivity extends BaseActivity {
         Prompter.toast(this, ((TextView) tab.getChildAt(1)).getText().toString());
         setTabSelected(tab);
         //TODO: 切换fragment
+
+        switch (tab.getId()) {
+            case R.id.tab_money:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, moneyFragment).commit();
+
+                FragmentManager fManager = getSupportFragmentManager();
+                FragmentTransaction fTransaction = fManager.beginTransaction();
+                fTransaction.
+
+                break;
+            case R.id.tab_found:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fountFramgnet).commit();
+                break;
+            default:
+                break;
+        }
+
+
+//        android.support.v4.app.Fragment
+
 
     }
 
