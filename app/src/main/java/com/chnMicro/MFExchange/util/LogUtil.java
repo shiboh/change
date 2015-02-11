@@ -3,6 +3,9 @@ package com.chnMicro.MFExchange.util;
 import android.os.Environment;
 import android.util.Log;
 
+import com.chnMicro.MFExchange.MiFieApplication;
+import com.chnMicro.MFExchange.R;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,7 +16,8 @@ import java.util.Date;
  * 日志记录
  */
 public class LogUtil {
-    private LogUtil(){}
+    private LogUtil() {
+    }
 
     /**
      * 开发阶段
@@ -45,8 +49,7 @@ public class LogUtil {
     static {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File externalStorageDirectory = Environment.getExternalStorageDirectory();
-            //TODO:路径文件夹名称改为统一定义
-            path = externalStorageDirectory.getAbsolutePath() + "/weijinsuo/";
+            path = externalStorageDirectory.getAbsolutePath() + "/" + MiFieApplication.context.getString(R.string.app_name_eng) + "/";
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdirs();

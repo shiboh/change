@@ -1,8 +1,6 @@
 package com.chnMicro.MFExchange;
 
 import android.content.Context;
-import android.os.Message;
-import android.util.Log;
 
 import com.chnMicro.MFExchange.bean.BaseResp;
 import com.chnMicro.MFExchange.util.LogUtil;
@@ -105,7 +103,9 @@ public class WJSClient {
                 return;
             }
 
-            //TODO: 处理业务逻辑
+            /**
+             * 处理业务逻辑
+             */
             onRealSuccess(response);
         }
 

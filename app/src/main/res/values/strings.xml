@@ -2,10 +2,8 @@
 <resources>
 
     <string name="app_name">微金所</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name_eng">MFExchange</string>
 
     <string name="msg_error_network">连接错误，请检查网络</string>
-
 
 </resources>
