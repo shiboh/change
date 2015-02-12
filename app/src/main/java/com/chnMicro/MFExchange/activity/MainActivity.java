@@ -9,10 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chnMicro.MFExchange.R;
-import com.chnMicro.MFExchange.fragment.FountFramgnet;
+import com.chnMicro.MFExchange.fragment.BaseFragment;
+import com.chnMicro.MFExchange.fragment.FoundFragmnet;
+import com.chnMicro.MFExchange.fragment.MineFragment;
 import com.chnMicro.MFExchange.fragment.MoneyFragment;
 import com.chnMicro.MFExchange.util.Prompter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.InjectView;
@@ -27,18 +30,20 @@ public class MainActivity extends BaseActivity {
     @InjectView(R.id.tab_money) LinearLayout tabMoney;
     @InjectView(R.id.tab_found) LinearLayout tabFound;
     @InjectView(R.id.tab_mine) LinearLayout tabMine;
-
     @InjectViews({R.id.tab_money, R.id.tab_found, R.id.tab_mine}) List<LinearLayout> tabs;
+
+    private FragmentManager fManager;
+    ArrayList<BaseFragment> fragments;
     private MoneyFragment moneyFragment;
-    private FountFramgnet fountFramgnet;
+    private FoundFragmnet foundFragmnet;
+    private MineFragment mineFragment;
 
     @Override protected void prepare() {
-
+        fManager = getSupportFragmentManager();
         Log.e("xxx", getLocalClassName() + " prepare()");
-        moneyFragment = new MoneyFragment();
-        fountFramgnet = new FountFramgnet();
-
+        initFragments();
     }
+
 
     @Override protected void setContentView() {
         setContentView(R.layout.activity_main);
@@ -46,45 +51,71 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override protected void initViews() {
+        initTabTags();
         initTabs();
-        //TODO: 选中第一个
+        //选中第一个
+        tabs.get(0).performClick();
 
         //TODO: 设置topbar文字，有的在fragment里，有的在activity里
 //        setTopbarText("充值", "我", "提现");
+    }
+
+    /**
+     * 给tab设置上tag，tag为对应的fragment对象
+     */
+    private void initTabTags() {
+        tabMoney.setTag(moneyFragment);
+        tabFound.setTag(foundFragmnet);
+        tabMine.setTag(mineFragment);
     }
 
     @Override protected void dealLogic() {
 
     }
 
+    /**
+     * 创建所有fragment对象，并添加到列表fragments里
+     */
+    private void initFragments() {
+        moneyFragment = new MoneyFragment();
+        foundFragmnet = new FoundFragmnet();
+        mineFragment = new MineFragment();
+
+        fragments = new ArrayList<>();
+        fragments.add(moneyFragment);
+        fragments.add(foundFragmnet);
+        fragments.add(mineFragment);
+    }
 
     @OnClick({R.id.tab_money, R.id.tab_found, R.id.tab_mine})
     public void onTabClicked(LinearLayout tab) {
         initTabs();
         Prompter.toast(this, ((TextView) tab.getChildAt(1)).getText().toString());
         setTabSelected(tab);
-        //TODO: 切换fragment
+        //切换fragment
+        BaseFragment fragment = (BaseFragment) tab.getTag();
+        show(fragment);
+    }
 
-        switch (tab.getId()) {
-            case R.id.tab_money:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, moneyFragment).commit();
-
-                FragmentManager fManager = getSupportFragmentManager();
-                FragmentTransaction fTransaction = fManager.beginTransaction();
-                fTransaction.
-
-                break;
-            case R.id.tab_found:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fountFramgnet).commit();
-                break;
-            default:
-                break;
+    /**
+     * 显示指定fragment，其他fragment隐藏
+     *
+     * @param fragment
+     */
+    private void show(BaseFragment fragment) {
+        FragmentTransaction transaction = fManager.beginTransaction();
+        if (!fragment.isAdded()) {
+            transaction.add(R.id.fragment_container, fragment, fragment.getClass().getSimpleName());
         }
 
-
-//        android.support.v4.app.Fragment
-
-
+        for (BaseFragment baseFragment : fragments) {
+            if (fragment == baseFragment) {
+                transaction.show(baseFragment);
+            }else {
+                transaction.hide(baseFragment);
+            }
+        }
+        transaction.commit();
     }
 
     /**

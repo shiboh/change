@@ -13,10 +13,10 @@ import com.chnMicro.MFExchange.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FountFramgnet extends Fragment {
+public class FoundFragmnet extends BaseFragment {
 
 
-    public FountFramgnet() {
+    public FoundFragmnet() {
         // Required empty public constructor
     }
 

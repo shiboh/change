@@ -6,7 +6,4 @@
 
     <string name="msg_error_network">连接错误，请检查网络</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">money</string>
-
 </resources>
