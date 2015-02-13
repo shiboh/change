@@ -32,6 +32,7 @@ public abstract class BaseFragment extends Fragment {
 
     public BaseFragment() {
         // Required empty public constructor
+
     }
 
     @Override
@@ -45,6 +46,11 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.inject(this, view);
         setTopbarTypeface();
         return view;
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.reset(this);
     }
 
     /**
