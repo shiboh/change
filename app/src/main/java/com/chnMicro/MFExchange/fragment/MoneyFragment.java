@@ -2,32 +2,27 @@ package com.chnMicro.MFExchange.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.chnMicro.MFExchange.R;
+
+import butterknife.InjectView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MoneyFragment extends BaseFragment {
-
+    @InjectView(R.id.topbar) LinearLayout topbar;
 
     public MoneyFragment() {
-        // Required empty public constructor
+        setLayoutRes(R.layout.fragment_money);        // Required empty public constructor
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        Log.e("xxx", getClass().getSimpleName() + " created");
-        return inflater.inflate(R.layout.fragment_money, container, false);
+    @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setTopbarText("", "理财", "");
     }
-
-
 }

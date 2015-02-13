@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.chnMicro.MFExchange.fragment.FoundFragmnet">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="found" />
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar_layout" />
 
 </FrameLayout>
