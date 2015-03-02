@@ -3,18 +3,20 @@ package com.chnMicro.MFExchange.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.chnMicro.MFExchange.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * tab-“发现”
  */
 public class FoundFragmnet extends BaseFragment {
 
     public FoundFragmnet() {
-        setLayoutRes(R.layout.fragment_found);
+    }
+
+    @Override protected int getLayoutRes() {
+        return R.layout.fragment_found;
     }
 
     @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

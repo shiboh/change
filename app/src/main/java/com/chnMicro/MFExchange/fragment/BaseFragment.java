@@ -32,17 +32,17 @@ public abstract class BaseFragment extends Fragment {
 
     public BaseFragment() {
         // Required empty public constructor
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        layoutRes = getLayoutRes();
         if (layoutRes <= 0) {
             LogUtil.info("onCreateView");
             throw new IllegalArgumentException("field layoutRes should be set");
         }
 
-        View view = inflater.inflate(R.layout.fragment_money, container, false);
+        View view = inflater.inflate(layoutRes, container, false);
         ButterKnife.inject(this, view);
         setTopbarTypeface();
         return view;
@@ -64,11 +64,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 设置fragment对应的布局
+     * 在子类中指定layout资源id
      */
-    protected void setLayoutRes(int layoutRes) {
-        this.layoutRes = layoutRes;
-    }
+    protected abstract int getLayoutRes();
 
     /**
      * 设置topbar左、中、右三个文本
