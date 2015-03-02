@@ -1,5 +1,6 @@
 package com.chnMicro.MFExchange.bean;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
@@ -14,7 +15,7 @@ public class BaseResp {
 
     public int respcode = -10000;
     public String message = "";
-    public JsonObject result;
+    public JsonElement result;
 
     /**
      * 未登录、登录超时、异地登陆

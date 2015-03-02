@@ -8,8 +8,8 @@ public interface Constants {
 //    String HOST_TEST = "http://test.weijinsuo.com:8336/";
 //	String HOST_TEST_LOCAL = "http://192.168.1.22:8336/";
 
-//    String HOST = "http://192.168.1.22:8336/";
-    String HOST = "https://interface.weijinsuo.com:8999/";
+    String HOST = "http://192.168.1.22:8336/";
+//    String HOST = "https://interface.weijinsuo.com:8999/";
 
     /**
      * 请求接口的参数“auth”中相关字段

@@ -16,7 +16,7 @@
 
     <dimen name="text_size_headline">24dp</dimen>
     <dimen name="text_size_headline_sub">16dp</dimen>
-    <dimen name="text_size_bottom_label">@dimen/text_size_small</dimen>
+    <dimen name="text_size_bottom_label">@dimen/text_size_micro</dimen>
 
     <dimen name="divider_height">1px</dimen>
 </resources>

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -37,6 +36,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
     private final AppManager appManager = AppManager.getInstance();
     protected boolean needLogin = false;
     protected Gson gson = MiFieApplication.gson;
+    protected Context WJSContext = MiFieApplication.context;
+
     /**
      * statusBarColor 值为0(Color.TRANSPARENT)时，contentView占据全屏；不为0时，contentView占据除statusBar以外的全屏。
      * 默认为MiFie红。

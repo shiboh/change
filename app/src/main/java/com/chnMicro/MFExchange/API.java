@@ -6,10 +6,16 @@ package com.chnMicro.MFExchange;
  * 数据接口
  */
 public enum API {
+
     /**
      * 登录
      */
-    LOGIN("/loginUser.do");
+    LOGIN("/loginUser.do"),
+
+    /**
+     * “微投资”项目列表
+     */
+    WTZ_LOAN_LIST("getLoanList.do");
 
 
     private String url;

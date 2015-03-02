@@ -71,6 +71,9 @@ public class LogUtil {
     }
 
     public static void info(Class clazz, String msg) {
+        if (msg == null) {
+            msg = "NULL";
+        }
         switch (currentStage) {
             case DEVELOP:
                 // 控制台输出

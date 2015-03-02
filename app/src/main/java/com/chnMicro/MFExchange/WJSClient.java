@@ -124,6 +124,8 @@ public class WJSClient {
 
         @Override
         protected BaseResp parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+            LogUtil.info(WJSClient.class, rawJsonData);
+
             if (!isFailure) {
                 Gson gson = MiFieApplication.gson;
                 BaseResp baseResp = gson.fromJson(rawJsonData, BaseResp.class);

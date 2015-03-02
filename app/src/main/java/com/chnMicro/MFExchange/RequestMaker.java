@@ -23,16 +23,63 @@ public class RequestMaker {
     private final static int API_20 = 20, API_21 = 21;
 
     /**
-     * 登录
+     * 账户。
+     *
+     * 注册、登录、头像、密码、充值*、提现*……
      */
-    public static Request getLoginReq(String username, String password) {
-        JsonObject infoJson = new JsonObject();
-        infoJson.addProperty("username", username);
-        infoJson.addProperty("loginPwd", password);
-        HttpEntity entity = getReqEntity(infoJson, 20, true);
-        Request request = new Request(API.LOGIN, entity);
-        return request;
+    public static class ACCOUNT {
+        /**
+         * 登录
+         */
+        public static Request getLoginReq(String username, String password) {
+            JsonObject infoJson = new JsonObject();
+            infoJson.addProperty("username", username);
+            infoJson.addProperty("loginPwd", password);
+            HttpEntity entity = getReqEntity(infoJson, 20, true);
+            Request request = new Request(API.LOGIN, entity);
+            return request;
+        }
+
     }
+
+    /**
+     * 理财。
+     *
+     * 各投资列表、项目详情、借款人信息、担保公司信息、投标、转债权、预约……
+     */
+    public static class MONEY {
+        /**
+         * “微投资”项目列表
+         */
+        public static Request getWTZLoanListReq(int pageIndex, int pageSize) {
+            JsonObject infoJson = new JsonObject();
+            infoJson.addProperty("pageIndex", pageIndex);
+            infoJson.addProperty("pageSize", pageSize);
+            HttpEntity entity = getReqEntity(infoJson, 20, false);
+            Request request = new Request(API.WTZ_LOAN_LIST, entity);
+            return request;
+        }
+
+    }
+
+    /**
+     * 参数配置。
+     *
+     * SysCofnig……
+     */
+    public static class CONFIG {
+
+    }
+
+    /**
+     * 杂。
+     *
+     * Banner列表、短信验证码、用户反馈、添加银行卡时获取城市列表……
+     */
+    public static class MISC {
+
+    }
+
 
     /**
      * 构造请求entity

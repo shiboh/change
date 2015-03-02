@@ -1,6 +1,7 @@
 package com.chnMicro.MFExchange.fragment;
 
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chnMicro.MFExchange.MiFieApplication;
 import com.chnMicro.MFExchange.R;
+import com.chnMicro.MFExchange.Request;
+import com.chnMicro.MFExchange.WJSClient;
 import com.chnMicro.MFExchange.util.LogUtil;
+import com.google.gson.Gson;
+import com.loopj.android.http.ResponseHandlerInterface;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,6 +27,9 @@ import butterknife.Optional;
  * A simple {@link Fragment} subclass.
  */
 public abstract class BaseFragment extends Fragment {
+    protected Gson gson = MiFieApplication.gson;
+    protected Context WJSContext = MiFieApplication.context;
+
     @Optional @InjectView(R.id.btn_topbar_left) TextView btnTopbarLeft;
     @Optional @InjectView(R.id.tv_topbar_middle) TextView tvTopbarMiddle;
     @Optional @InjectView(R.id.btn_topbar_right) TextView btnTopbarRight;
@@ -46,6 +55,17 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.inject(this, view);
         setTopbarTypeface();
         return view;
+    }
+
+    @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        //初始化fragment
+
+        //TODO:要不要和BaseActivity中的方法统一
+//        prepare();
+//        setContentView();
+//        beforeInitViews();
+//        initViews();
+//        dealLogic();
     }
 
     @Override public void onDestroy() {
@@ -76,4 +96,15 @@ public abstract class BaseFragment extends Fragment {
         if (tvTopbarMiddle != null) tvTopbarMiddle.setText(middle);
         if (btnTopbarRight != null) btnTopbarRight.setText(right);
     }
+
+    /**
+     * 执行post请求
+     *
+     * @param request
+     * @param responseHandler
+     */
+    protected void post(Request request, ResponseHandlerInterface responseHandler) {
+        WJSClient.post(getActivity(), request, responseHandler);
+    }
+
 }
