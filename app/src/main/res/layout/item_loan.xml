@@ -14,38 +14,69 @@
         android:textColor="@color/text_grey_light"
         android:textSize="@dimen/text_size_small" />
 
-    <TextView
-        android:id="@+id/rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:text="12.3"
-        android:textColor="@color/mifie_red"
-        android:textSize="@dimen/text_size_large" />
-
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_centerHorizontal="true"
-        android:gravity="bottom">
+
+        android:layout_below="@id/title">
 
         <TextView
-            android:id="@+id/period"
+            android:id="@+id/rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6"
-            android:textColor="@color/mifie_grey"
+            android:text="12.3"
+            android:textColor="@color/mifie_red"
             android:textSize="@dimen/text_size_large" />
 
-        <TextView
-            android:id="@+id/period_unit"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/period"
-            android:text="个月"
-            android:textColor="@color/mifie_grey"
-            android:textSize="@dimen/text_size_medium" />
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom">
+
+            <TextView
+                android:id="@+id/period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:textColor="@color/mifie_red"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:id="@+id/period_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/period"
+                android:text="个月"
+                android:textColor="@color/mifie_red"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/slash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/period_unit"
+                android:text="/"
+                android:textColor="@color/mifie_grey"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/slash"
+                android:text="5"
+                android:textColor="@color/mifie_red"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/level"
+                android:text="星"
+                android:textColor="@color/mifie_red"
+                android:textSize="@dimen/text_size_medium" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <com.chnMicro.MFExchange.view.LoanCircleProgress
@@ -53,6 +84,6 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentRight="true"
-        app:progress="75" />
+        app:progress="0" />
 
 </RelativeLayout>

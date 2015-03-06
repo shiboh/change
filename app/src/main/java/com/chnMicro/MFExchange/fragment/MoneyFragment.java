@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.chnMicro.MFExchange.R;
@@ -95,7 +94,8 @@ public class MoneyFragment extends BaseFragment {
             holder.title.setText(loan.getLoanName());
             holder.rate.setText("" + loan.getInterestRate() + "%");
             holder.period.setText(loan.getRepaymentMonth());
-//            holder.progress.setProgress((int) loan.getProgress());
+            holder.level.setText(loan.getGradeIdType());
+            holder.progress.setProgress((int) loan.getProgress());
 
             return convertView;
         }
@@ -108,6 +108,7 @@ public class MoneyFragment extends BaseFragment {
             @InjectView(R.id.title) TextView title;
             @InjectView(R.id.rate) TextView rate;
             @InjectView(R.id.period) TextView period;
+            @InjectView(R.id.level) TextView level;//星级
             @InjectView(R.id.progress) LoanCircleProgress progress;
         }
     }

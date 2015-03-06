@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -48,7 +47,7 @@ public class LoanCircleProgress extends View {
         initPaints();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoanCircleProgress);
-        max = a.getInt(R.styleable.LoanCircleProgress_max, max);
+//        max = a.getInt(R.styleable.LoanCircleProgress_max, max);
         progress = a.getInt(R.styleable.LoanCircleProgress_progress, progress);
         progressColor = a.getColor(R.styleable.LoanCircleProgress_color_progress, progressColor);
         secondaryColor = a.getColor(R.styleable.LoanCircleProgress_color_secondary, secondaryColor);
@@ -64,6 +63,8 @@ public class LoanCircleProgress extends View {
 
         textPaint = new TextPaint();
         textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setTextSize(40);
+        textPaint.setColor(progressColor);
         //TODO
     }
 
@@ -96,17 +97,15 @@ public class LoanCircleProgress extends View {
         canvas.drawArc(rectF, startAngle, sweepAngle, false, circlePaint);
         circlePaint.setColor(secondaryColor);
         canvas.drawArc(rectF, startAngle + sweepAngle, 360 + startAngle, false, circlePaint);
-        //TODO:写字
+        //TODO:写字。通过status字段控制各种状态下的显示，都通过LoanCircleProgress控件管理
+        canvas.drawText(progress + "%", contentWidth / 2, contentHeight / 2, textPaint);
+
         //标的状态（0-投资中,1-已满标,2-还款中,3-已结清）
-
-        switch (status) {
-            case 0:
-
-                break;
-
-            default:
-                break;
-        }
-
     }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
+        invalidate();
+    }
+
 }
