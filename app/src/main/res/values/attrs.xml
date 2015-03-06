@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoanCircleProgress">
+        <attr name="max" format="integer" />
+        <attr name="progress" format="integer" />
+        <attr name="color_progress" format="color" />
+        <attr name="color_secondary" format="color" />
+        <attr name="status" format="enum">
+            <!--投资中-->
+            <enum name="in_progress" value="0" />
+            <!--已满标-->
+            <enum name="completed" value="1" />
+            <!--还款中-->
+            <enum name="in_payback" value="2" />
+            <!--已结清-->
+            <enum name="done" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

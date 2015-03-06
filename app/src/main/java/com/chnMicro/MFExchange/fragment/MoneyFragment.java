@@ -16,6 +16,7 @@ import com.chnMicro.MFExchange.WJSClient;
 import com.chnMicro.MFExchange.bean.BaseResp;
 import com.chnMicro.MFExchange.bean.Loan;
 import com.chnMicro.MFExchange.util.LogUtil;
+import com.chnMicro.MFExchange.view.LoanCircleProgress;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class MoneyFragment extends BaseFragment {
                 loanList = gson.fromJson(response.result, new TypeToken<List<Loan>>() {
                 }.getType());
 
-                //TODO: setup list data
+                //setup list data
                 setupListData();
 
                 for (Loan loan : loanList) {
@@ -94,7 +95,7 @@ public class MoneyFragment extends BaseFragment {
             holder.title.setText(loan.getLoanName());
             holder.rate.setText("" + loan.getInterestRate() + "%");
             holder.period.setText(loan.getRepaymentMonth());
-            holder.progress.setProgress((int) loan.getProgress());
+//            holder.progress.setProgress((int) loan.getProgress());
 
             return convertView;
         }
@@ -107,7 +108,7 @@ public class MoneyFragment extends BaseFragment {
             @InjectView(R.id.title) TextView title;
             @InjectView(R.id.rate) TextView rate;
             @InjectView(R.id.period) TextView period;
-            @InjectView(R.id.progress) ProgressBar progress;
+            @InjectView(R.id.progress) LoanCircleProgress progress;
         }
     }
 }

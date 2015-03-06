@@ -22,6 +22,11 @@
     <color name="mifie_grey_3">#56637D</color>
     <!-- 白 -->
     <color name="white">#FFFFFF</color>
+    <!--白色背景上的灰底色-->
+    <color name="grey_bg" >#EAEDF1</color>
+    <!--分割线灰色-->
+    <color name="grey_divider">#C5C8D9</color>
+
 
     <color name="btn_pressed_default">#46ffffff</color>
 
