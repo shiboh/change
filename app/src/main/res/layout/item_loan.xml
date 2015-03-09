@@ -17,7 +17,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/title">
 
         <TextView
@@ -26,7 +25,8 @@
             android:layout_height="wrap_content"
             android:text="12.3"
             android:textColor="@color/mifie_red"
-            android:textSize="@dimen/text_size_large" />
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="6"
                 android:textColor="@color/mifie_red"
-                android:textSize="@dimen/text_size_large" />
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/period_unit"
@@ -67,7 +68,8 @@
                 android:layout_toRightOf="@id/slash"
                 android:text="5"
                 android:textColor="@color/mifie_red"
-                android:textSize="@dimen/text_size_large" />
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"

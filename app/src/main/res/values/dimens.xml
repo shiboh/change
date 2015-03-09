@@ -19,4 +19,8 @@
     <dimen name="text_size_bottom_label">@dimen/text_size_micro</dimen>
 
     <dimen name="divider_height">1px</dimen>
+
+    <dimen name="pager_tab_height">48dp</dimen>
+
+
 </resources>

@@ -1,5 +1,7 @@
 package com.chnMicro.MFExchange.fragment;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.chnMicro.MFExchange.R;
 import com.chnMicro.MFExchange.Request;
 import com.chnMicro.MFExchange.RequestMaker;
@@ -39,6 +42,7 @@ public class MoneyFragment extends BaseFragment {
     private List<Loan> loanList;
 
     @InjectView(R.id.pager) ViewPager pager;
+    @InjectView(R.id.tabs) PagerSlidingTabStrip tabs;
 
     public MoneyFragment() {
     }
@@ -54,7 +58,7 @@ public class MoneyFragment extends BaseFragment {
         FragmentManager fm = getFragmentManager();
         MoneyFragmentPagerAdapter adapter = new MoneyFragmentPagerAdapter(fm);
         pager.setAdapter(adapter);
-
+        tabs.setViewPager(pager);
     }
 
     private class MoneyFragmentPagerAdapter extends FragmentPagerAdapter{
@@ -74,6 +78,10 @@ public class MoneyFragment extends BaseFragment {
 
         @Override public int getCount() {
             return typeNames.length;
+        }
+
+        @Override public CharSequence getPageTitle(int position) {
+            return typeNames[position];
         }
     }
 
