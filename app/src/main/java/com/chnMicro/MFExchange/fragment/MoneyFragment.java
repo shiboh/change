@@ -2,6 +2,12 @@ package com.chnMicro.MFExchange.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,6 +24,7 @@ import com.chnMicro.MFExchange.util.LogUtil;
 import com.chnMicro.MFExchange.view.LoanCircleProgress;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -27,9 +34,11 @@ import butterknife.InjectView;
  * tab-“理财”
  */
 public class MoneyFragment extends BaseFragment {
+    //TODO:改为从api获取
+    public static final String[] typeNames = {"微金所", "推荐", "微投资", "微小宝", "微票宝", "微转让"};
     private List<Loan> loanList;
 
-    @InjectView(R.id.lv) ListView lv;
+    @InjectView(R.id.pager) ViewPager pager;
 
     public MoneyFragment() {
     }
@@ -42,74 +51,30 @@ public class MoneyFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         setTopbarText("", "理财", "");
 
-        Request wtzLoanListReq = RequestMaker.MONEY.getWTZLoanListReq(1, 10);
-        post(wtzLoanListReq, new WJSClient.WJSBaseJsonHttpResponseHandler() {
-            @Override protected void onRealSuccess(BaseResp response) {
-                loanList = gson.fromJson(response.result, new TypeToken<List<Loan>>() {
-                }.getType());
+        FragmentManager fm = getFragmentManager();
+        MoneyFragmentPagerAdapter adapter = new MoneyFragmentPagerAdapter(fm);
+        pager.setAdapter(adapter);
 
-                //setup list data
-                setupListData();
-
-                for (Loan loan : loanList) {
-                    LogUtil.info(loan.getLoanName());
-                }
-
-            }
-        });
     }
 
-    private void setupListData() {
-        BaseAdapter adapter = new LoanAdapter();
-        lv.setAdapter(adapter);
-    }
+    private class MoneyFragmentPagerAdapter extends FragmentPagerAdapter{
+        public MoneyFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-    /**
-     * 兼容：微投资、
-     */
-    public class LoanAdapter extends BaseAdapter {
+        @Override public Fragment getItem(int position) {
+            TypedMoneyFragment fragment = new TypedMoneyFragment();
+            Bundle args = new Bundle();
+            //TODO: 处理产品类型与值的对应关系
+            //TODO: 由接口配置产品类型与顺序，改为可扩展的(接口需要返回各产品类型列表的api)
+            args.putInt(TypedMoneyFragment.MONEY_TYPE, position);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
         @Override public int getCount() {
-            return loanList.size();
-        }
-
-        @Override public Object getItem(int position) {
-            return position;
-        }
-
-        @Override public long getItemId(int position) {
-            return position;
-        }
-
-        @Override public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if (convertView != null) {
-                holder = (ViewHolder) convertView.getTag();
-            } else {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.item_loan, parent, false);
-                holder = new ViewHolder(convertView);
-                convertView.setTag(holder);
-            }
-
-            Loan loan = loanList.get(position);
-            holder.title.setText(loan.getLoanName());
-            holder.rate.setText("" + loan.getInterestRate() + "%");
-            holder.period.setText(loan.getRepaymentMonth());
-            holder.level.setText(loan.getGradeIdType());
-            holder.progress.setProgress((int) loan.getProgress());
-
-            return convertView;
-        }
-
-        class ViewHolder {
-            ViewHolder(View view) {
-                ButterKnife.inject(this, view);
-            }
-
-            @InjectView(R.id.title) TextView title;
-            @InjectView(R.id.rate) TextView rate;
-            @InjectView(R.id.period) TextView period;
-            @InjectView(R.id.level) TextView level;//星级
-            @InjectView(R.id.progress) LoanCircleProgress progress;
+            return typeNames.length;
         }
     }
+
 }

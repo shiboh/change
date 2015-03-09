@@ -4,11 +4,8 @@ package com.chnMicro.MFExchange;
  * Created by Enel on 2015/1/26.
  */
 public interface Constants {
-//    String HOST = "https://interface.weijinsuo.com:8999/";
-//    String HOST_TEST = "http://test.weijinsuo.com:8336/";
-//	String HOST_TEST_LOCAL = "http://192.168.1.22:8336/";
-
-    String HOST = "http://192.168.1.22:8336/";
+//    String HOST = "http://192.168.1.22:8336/";
+    String HOST = "http://test.weijinsuo.com:8336/";
 //    String HOST = "https://interface.weijinsuo.com:8999/";
 
     /**
